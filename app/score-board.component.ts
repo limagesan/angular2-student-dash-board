@@ -17,44 +17,44 @@ import { StudentService } from './student.service';
 
 export class ScoreBoardComponent implements OnInit {
 title ="Tour of Heroes";
+	heroes: Hero[];
+	selectedHero: Hero;
+	addingHero = false;
 	error: any;
 
-	students: Student[];
-	selectedStudent: Student;
-	addingStudent = false;
-
+	
 	constructor( private router: Router,
-		private studentService: StudentService) { }
+		private heroService: HeroService) { }
 
-getStudents(): void {
-    this.studentService.getStudents().then(students => this.students = students);
+	getHeroes(): void {
+    this.heroService.getHeroes().then(heroes => this.heroes = heroes);
   }
 
 	 ngOnInit():void {
-    this.getStudents();
+    this.getHeroes();
   }
 
-	onSelect(student: Student): void { this.selectedStudent = student; }
+	onSelect(hero: Hero): void { this.selectedHero = hero; }
  gotoDetail(): void {
-    this.router.navigate(['/detail', this.selectedStudent.id]);
+    this.router.navigate(['/detail', this.selectedHero.id]);
   }
 
-addStudent(): void {
-  this.addingStudent = true;
-  this.selectedStudent = null;
+addHero(): void {
+  this.addingHero = true;
+  this.selectedHero = null;
 }
 
-close(savedStudent: Student): void {
-  this.addingStudent = false;
-  if (savedStudent) { this.getStudents(); }
+close(savedHero: Hero): void {
+  this.addingHero = false;
+  if (savedHero) { this.getHeroes(); }
 }
-deleteStudent(student: Student, event: any): void {
+deleteHero(hero: Hero, event: any): void {
   event.stopPropagation();
-  this.studentService
-      .delete(student)
+  this.heroService
+      .delete(hero)
       .then(res => {
-        this.students = this.students.filter(h => h !== student);
-        if (this.selectedStudent === student) { this.selectedStudent = null; }
+        this.heroes = this.heroes.filter(h => h !== hero);
+        if (this.selectedHero === hero) { this.selectedHero = null; }
       })
       .catch(error => this.error = error);
 }

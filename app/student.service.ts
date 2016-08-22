@@ -18,32 +18,31 @@ export class StudentService {
     setTimeout(() => resolve(HEROES), 2000) // 2 seconds
   );
 }*/
-
-getStudent(id: number) {
-  return this.getStudents()
-             .then(students => students.find(student => student.id === id));
+getHero(id: number) {
+  return this.getHeroes()
+             .then(heroes => heroes.find(hero => hero.id === id));
 }
 
 
 
- private studentsUrl = 'app/students';  // URL to web api
+ private heroesUrl = 'app/heroes';  // URL to web api
 
   constructor(private http: Http) { }
 
-  getStudents(): Promise<Student[]> {
-    return this.http.get(this.studentsUrl)
+  getHeroes(): Promise<Hero[]> {
+    return this.http.get(this.heroesUrl)
                .toPromise()
-               .then(response => response.json().data as Student[])
+               .then(response => response.json().data as Hero[])
                .catch(this.handleError);
   }
 
-// Add new Student
-private post(student: Student): Promise<Student> {
+// Add new Hero
+private post(hero: Hero): Promise<Hero> {
   let headers = new Headers({
     'Content-Type': 'application/json'});
 
   return this.http
-             .post(this.studentsUrl, JSON.stringify(student), {headers: headers})
+             .post(this.heroesUrl, JSON.stringify(hero), {headers: headers})
              .toPromise()
              .then(res => res.json().data)
              .catch(this.handleError);
@@ -51,31 +50,31 @@ private post(student: Student): Promise<Student> {
 
 
 // Update existing Hero
-private put(student: Student): Promise<Student> {
+private put(hero: Hero): Promise<Hero> {
   let headers = new Headers();
   headers.append('Content-Type', 'application/json');
 
-  let url = `${this.studentsUrl}/${student.id}`;
+  let url = `${this.heroesUrl}/${hero.id}`;
 
   return this.http
-             .put(url, JSON.stringify(student), {headers: headers})
+             .put(url, JSON.stringify(hero), {headers: headers})
              .toPromise()
-             .then(() => student)
+             .then(() => hero)
              .catch(this.handleError);
 }
 
 
-save(student: Student): Promise<Student>  {
-  if (student.id) {
-    return this.put(student);
+save(hero: Hero): Promise<Hero>  {
+  if (hero.id) {
+    return this.put(hero);
   }
-  return this.post(student);
+  return this.post(hero);
 }
 
-delete(student: Student): Promise<Response> {
+delete(hero: Hero): Promise<Response> {
     let headers = new Headers();
     headers.append('Content-Type', 'application/json');
-    let url = `${this.studentsUrl}/${student.id}`;
+    let url = `${this.heroesUrl}/${hero.id}`;
     return this.http
                .delete(url, {headers: headers})
                .toPromise()

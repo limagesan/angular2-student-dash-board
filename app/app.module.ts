@@ -43,8 +43,8 @@ import { StudentService }  from './student.service';
 	 HeroService,
 	StudentService,
 	 { provide: XHRBackend, useClass: InMemoryBackendService }, // in-mem server
-//    { provide: SEED_DATA,  useClass: InMemoryDataService }     // in-mem server data
-{ provide: SEED_DATA,  useClass: InMemoryStudentDataService }//Student用 サーバーデータ
+  { provide: SEED_DATA,  useClass: InMemoryDataService }     // in-mem server data
+//{ provide: SEED_DATA,  useClass: InMemoryStudentDataService }//Student用 サーバーデータ
 ],
   bootstrap:    [ AppComponent ]
 })

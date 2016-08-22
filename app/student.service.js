@@ -15,7 +15,7 @@ require('rxjs/add/operator/toPromise');
 var StudentService = (function () {
     function StudentService(http) {
         this.http = http;
-        this.studentsUrl = 'app/students'; // URL to web api
+        this.heroesUrl = 'app/heroes'; // URL to web api
     }
     //何か処理が解決したらHEROESを渡すのか?
     //resolveは処理成功時(失敗時はreject)
@@ -26,47 +26,47 @@ var StudentService = (function () {
         setTimeout(() => resolve(HEROES), 2000) // 2 seconds
       );
     }*/
-    StudentService.prototype.getStudent = function (id) {
-        return this.getStudents()
-            .then(function (students) { return students.find(function (student) { return student.id === id; }); });
+    StudentService.prototype.getHero = function (id) {
+        return this.getHeroes()
+            .then(function (heroes) { return heroes.find(function (hero) { return hero.id === id; }); });
     };
-    StudentService.prototype.getStudents = function () {
-        return this.http.get(this.studentsUrl)
+    StudentService.prototype.getHeroes = function () {
+        return this.http.get(this.heroesUrl)
             .toPromise()
             .then(function (response) { return response.json().data; })
             .catch(this.handleError);
     };
-    // Add new Student
-    StudentService.prototype.post = function (student) {
+    // Add new Hero
+    StudentService.prototype.post = function (hero) {
         var headers = new http_1.Headers({
             'Content-Type': 'application/json' });
         return this.http
-            .post(this.studentsUrl, JSON.stringify(student), { headers: headers })
+            .post(this.heroesUrl, JSON.stringify(hero), { headers: headers })
             .toPromise()
             .then(function (res) { return res.json().data; })
             .catch(this.handleError);
     };
     // Update existing Hero
-    StudentService.prototype.put = function (student) {
+    StudentService.prototype.put = function (hero) {
         var headers = new http_1.Headers();
         headers.append('Content-Type', 'application/json');
-        var url = this.studentsUrl + "/" + student.id;
+        var url = this.heroesUrl + "/" + hero.id;
         return this.http
-            .put(url, JSON.stringify(student), { headers: headers })
+            .put(url, JSON.stringify(hero), { headers: headers })
             .toPromise()
-            .then(function () { return student; })
+            .then(function () { return hero; })
             .catch(this.handleError);
     };
-    StudentService.prototype.save = function (student) {
-        if (student.id) {
-            return this.put(student);
+    StudentService.prototype.save = function (hero) {
+        if (hero.id) {
+            return this.put(hero);
         }
-        return this.post(student);
+        return this.post(hero);
     };
-    StudentService.prototype.delete = function (student) {
+    StudentService.prototype.delete = function (hero) {
         var headers = new http_1.Headers();
         headers.append('Content-Type', 'application/json');
-        var url = this.studentsUrl + "/" + student.id;
+        var url = this.heroesUrl + "/" + hero.id;
         return this.http
             .delete(url, { headers: headers })
             .toPromise()

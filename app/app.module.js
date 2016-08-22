@@ -14,6 +14,7 @@ var forms_1 = require('@angular/forms');
 // Imports for loading & configuring the in-memory web api
 var http_1 = require('@angular/http');
 var angular2_in_memory_web_api_1 = require('angular2-in-memory-web-api');
+var in_memory_data_service_1 = require('./in-memory-data.service');
 var app_component_1 = require('./app.component');
 var app_routing_1 = require('./app.routing');
 var http_2 = require('@angular/http');
@@ -23,7 +24,6 @@ var dashboard_component_1 = require('./dashboard.component');
 var hero_service_1 = require('./hero.service');
 //import { HeroSearchComponent }  from './hero-search.component';
 var score_board_component_1 = require('./score-board.component');
-var in_memory_studentdata_service_1 = require('./in-memory-studentdata.service');
 var student_service_1 = require('./student.service');
 var AppModule = (function () {
     function AppModule() {
@@ -48,8 +48,7 @@ var AppModule = (function () {
                 hero_service_1.HeroService,
                 student_service_1.StudentService,
                 { provide: http_1.XHRBackend, useClass: angular2_in_memory_web_api_1.InMemoryBackendService },
-                //    { provide: SEED_DATA,  useClass: InMemoryDataService }     // in-mem server data
-                { provide: angular2_in_memory_web_api_1.SEED_DATA, useClass: in_memory_studentdata_service_1.InMemoryStudentDataService } //Student用 サーバーデータ
+                { provide: angular2_in_memory_web_api_1.SEED_DATA, useClass: in_memory_data_service_1.InMemoryDataService } // in-mem server data
             ],
             bootstrap: [app_component_1.AppComponent]
         }), 
