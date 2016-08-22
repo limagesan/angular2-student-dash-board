@@ -1,0 +1,18 @@
+<table class="score-board">
+<tr><td>ID</td><td>名前</td><td>国語</td><td>数学</td><td>英語</td><td>合計</td></tr>
+<tr　*ngFor="let student of students" [class.selected]="student === selectedStudent"
+ (click)="onSelect(student)">
+<td>{{student.id}}</td><td>{{student.name}}</td><td>{{student.japanese}}</td><td>{{student.math}}</td><td>{{student.english}}</td><td>{{student.english}}</td>
+
+</tr>
+</table>
+
+<li *ngFor="let student of students"
+	[class.selected]="student === selectedStudent"
+ (click)="onSelect(student)">
+    	<!-- each hero goes here -->
+<span class="student-element">
+	<span class="badge">{{student.id}}</span> {{student.name}}
+</span>
+<button class="delete-button" (click)="deleteStudent(student, $event)">Delete</button>  	
+</li>
