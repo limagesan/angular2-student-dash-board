@@ -1,0 +1,22 @@
+<p></p>
+<table class="score-board">
+<tr class="outline">
+<td class="outline">
+<tr><th>ID</th><th>名前</th><th>国語</th><th>数学</th><th>英語</th><th>総合</th></tr>
+<tr *ngFor="let student of students; let i=index;"[class.selected]="student === selectedStudent"
+    (click)="onSelect(student,i)" class="main-value"><td>{{student.id}}</td><td>{{student.name}}</td><td>{{student.japanese}}</td><td>{{student.math}}</td><td>{{student.english}}</td><td>{{student.sum}}</td></tr>
+</td>
+<td class="outline">
+<div *ngIf="selectedStudent">
+{{selectedStudent.name| uppercase}}の情報<br>
+ID:{{selectedStudent.id}}<br>
+国語:{{selectedStudent.japanese}}<br>
+数学:{{selectedStudent.math}}<br>
+英語:{{selectedStudent.english}}<br>
+<button (click)="gotoDetail()">情報を編集</button>
+<button (click)="delete()">生徒を削除</button>
+</div>
+</td>
+</tr>
+</table>
+<button (click)="makenewStudent()">生徒を追加</button>

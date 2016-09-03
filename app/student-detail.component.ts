@@ -1,60 +1,37 @@
-//import { Component, Input } from '@angular/core';
-import { Hero } from './hero';
-// Keep the Input import for now, we'll remove it later:
-import { Component, EventEmitter , Input, OnInit , Output } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Params } from '@angular/router';
 
-import { HeroService } from './hero.service';
+import { Student } from './student';
+import { StudentService } from './student.service';
 
 @Component({
-  selector: 'my-hero-detail',
- templateUrl: 'app/hero-detail.component.html',
-styleUrls:['app/hero-detail.component.css']
+  selector: 'my-student-detail',
+  templateUrl: 'app/student-detail.component.html',
+  styleUrls: ['app/student-detail.component.css']
 })
 export class StudentDetailComponent implements OnInit {
+  student: Student;
+  newStudent: Student = null;
 
-  @Input() hero: Hero;
+  constructor(
+    private studentService: StudentService,
+    private route: ActivatedRoute) {
 
- @Output() close = new EventEmitter();
-  error: any;
-  navigated = false; // true if navigated here
+  }
 
-constructor(
-  private heroService: HeroService,
-  private route: ActivatedRoute) {
-}
-ngOnInit() {
-  this.route.params.forEach((params: Params) => {
-      if (params['id'] !== undefined) {
-        let id = +params['id'];
-        this.navigated = true;
-        this.heroService.getHero(id)
-            .then(hero => this.hero = hero);
-      } else {
-        this.navigated = false;
-        this.hero = new Hero();
-      }
+  ngOnInit(): void {
+    this.route.params.forEach((params: Params) => {
+      let id = +params['id'];
+      this.studentService.getStudent(id)
+        .then(student => {if( student === undefined ){
+          this.newStudent={id : id , name : "" ,japanese :0 ,math : 0 , english :0 ,num : 0,sum : 0};
+          this.student = this.newStudent;
+        }else{this.student = student} });
     });
-}
-/*goBack() {
-  window.history.back();
-}*/
+  }
 
-goBack(savedHero: Hero = null): void {
-  this.close.emit(savedHero);
-  if (this.navigated) { window.history.back(); }
-}
-
-
-save(): void {
-  this.heroService
-      .save(this.hero)
-      .then(hero => {
-        this.hero = hero; // saved hero, w/ id if new
-        this.goBack(hero);
-      })
-      .catch(error => this.error = error); // TODO: Display error message
-}
+  goBack(): void {
+    window.history.back();
+  }
 
 }
-

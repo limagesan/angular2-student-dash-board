@@ -1,90 +1,47 @@
-import { Injectable } from '@angular/core';
-import { Hero } from './hero';
-//import { HEROES } from './mock-heroes';
-
-import { Headers, Http, Response } from '@angular/http';
-import 'rxjs/add/operator/toPromise';
-
 import { Student } from './student';
+import { Injectable } from '@angular/core';
+
+
+var ja : number;
+var ma : number;
+var en : number;
+
 
 @Injectable()
 export class StudentService {
-//何か処理が解決したらHEROESを渡すのか?
-//resolveは処理成功時(失敗時はreject)
-//ここで指定した引数が呼び出し時のThenの引数になる
-//	getHeroes(){return Promise.resolve(HEROES);}
-/*	getHeroesSlowly() {
-  return new Promise<Hero[]>(resolve =>
-    setTimeout(() => resolve(HEROES), 2000) // 2 seconds
-  );
-}*/
-getHero(id: number) {
-  return this.getHeroes()
-             .then(heroes => heroes.find(hero => hero.id === id));
-}
+
+  STUDENT : Student[] = [
+    {id: 1, name: '山田一郎' ,japanese:60,math:80,english:40, num:0 ,sum : null},
+    {id: 2, name: '田中元気' ,japanese:40,math:70,english:60, num:0 ,sum : null},
+    {id: 3, name: '鈴木風子' ,japanese:90,math:40,english:85, num:0 ,sum : null}
+  ];
 
 
 
- private heroesUrl = 'app/heroes';  // URL to web api
 
-  constructor(private http: Http) { }
 
-  getHeroes(): Promise<Hero[]> {
-    return this.http.get(this.heroesUrl)
-               .toPromise()
-               .then(response => response.json().data as Hero[])
-               .catch(this.handleError);
+  getStudents(): Promise<Student[]> {
+
+    return Promise.resolve(this.STUDENT);
   }
 
-// Add new Hero
-private post(hero: Hero): Promise<Hero> {
-  let headers = new Headers({
-    'Content-Type': 'application/json'});
 
-  return this.http
-             .post(this.heroesUrl, JSON.stringify(hero), {headers: headers})
-             .toPromise()
-             .then(res => res.json().data)
-             .catch(this.handleError);
-}
-
-
-// Update existing Hero
-private put(hero: Hero): Promise<Hero> {
-  let headers = new Headers();
-  headers.append('Content-Type', 'application/json');
-
-  let url = `${this.heroesUrl}/${hero.id}`;
-
-  return this.http
-             .put(url, JSON.stringify(hero), {headers: headers})
-             .toPromise()
-             .then(() => hero)
-             .catch(this.handleError);
-}
-
-
-save(hero: Hero): Promise<Hero>  {
-  if (hero.id) {
-    return this.put(hero);
-  }
-  return this.post(hero);
-}
-
-delete(hero: Hero): Promise<Response> {
-    let headers = new Headers();
-    headers.append('Content-Type', 'application/json');
-    let url = `${this.heroesUrl}/${hero.id}`;
-    return this.http
-               .delete(url, {headers: headers})
-               .toPromise()
-               .catch(this.handleError);
+  getStudent(id: number): Promise<Student> {
+    return this.getStudents()
+               .then(students => students.find(student => student.id === id));
   }
 
-  private handleError(error: any): Promise<any> {
-    console.error('An error occurred', error);
-    return Promise.reject(error.message || error);
+
+  getSum(length : number): void {
+
+    for( var i=0 ; i<length ;i++){
+      ja = <number>this.STUDENT[i].japanese;
+      ma = <number>this.STUDENT[i].math;
+      en = <number>this.STUDENT[i].english;
+
+      this.STUDENT[i].sum = Number (ja) + Number (ma) + Number (en);
+    }
+
   }
 
 }
-

@@ -4,7 +4,7 @@ export class Student {
   japanese: number;
   math: number;
   english: number;
+  num: number;
+  sum: number;
 
-getSum(){return this.japanese+this.math+this.english;}
 }
-

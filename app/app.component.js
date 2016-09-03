@@ -9,16 +9,15 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var core_1 = require('@angular/core');
-require('./rxjs-extensions');
 var AppComponent = (function () {
     function AppComponent() {
-        this.title = "Tour of Heroes";
+        this.title = '成績管理表';
     }
     AppComponent = __decorate([
         core_1.Component({
             selector: 'my-app',
-            template: "\n   <h1>{{title}}</h1>\n   <nav>\n   <!--  <a routerLink=\"/dashboard\" routerLinkActive=\"active\">Dashboard</a>\n     <a routerLink=\"/heroes\" routerLinkActive=\"active\">Heroes</a> -->  \n     <a routerLink=\"/students\" routerLinkActive=\"active\">Students</a>   \n \n  </nav>\n   <router-outlet></router-outlet>\n  ",
-            styleUrls: ['app/app.component.css']
+            template: "\n    <h1>{{title}}</h1>\n    <nav>\n      <a routerLink=\"/students\" routerLinkActive=\"active\">MyStudents</a>\n      <a routerLink=\"/studentdashboard\" routerLinkActive=\"active\">Top 3</a>\n </nav>\n    <router-outlet></router-outlet>\n  ",
+            styleUrls: ['app/app.component.css'],
         }), 
         __metadata('design:paramtypes', [])
     ], AppComponent);

@@ -1,0 +1,11 @@
+<h3>成績優秀者</h3>
+<center>
+<div class="grid grid-pad">
+  <div *ngFor="let student of students; let i=index" (click)="gotoDetail(student)" class="col-0-2">
+    <div class="module hero">
+      <h5>No.{{i+1}}</h5>
+      <h4>{{student.name}}</h4>
+    </div>
+  </div>
+</div>
+</center>

@@ -9,76 +9,35 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var core_1 = require('@angular/core');
-//import { HEROES } from './mock-heroes';
-var http_1 = require('@angular/http');
-require('rxjs/add/operator/toPromise');
+var ja;
+var ma;
+var en;
 var StudentService = (function () {
-    function StudentService(http) {
-        this.http = http;
-        this.heroesUrl = 'app/heroes'; // URL to web api
+    function StudentService() {
+        this.STUDENT = [
+            { id: 1, name: '山田一郎', japanese: 60, math: 80, english: 40, num: 0, sum: null },
+            { id: 2, name: '田中元気', japanese: 40, math: 70, english: 60, num: 0, sum: null },
+            { id: 3, name: '鈴木風子', japanese: 90, math: 40, english: 85, num: 0, sum: null }
+        ];
     }
-    //何か処理が解決したらHEROESを渡すのか?
-    //resolveは処理成功時(失敗時はreject)
-    //ここで指定した引数が呼び出し時のThenの引数になる
-    //	getHeroes(){return Promise.resolve(HEROES);}
-    /*	getHeroesSlowly() {
-      return new Promise<Hero[]>(resolve =>
-        setTimeout(() => resolve(HEROES), 2000) // 2 seconds
-      );
-    }*/
-    StudentService.prototype.getHero = function (id) {
-        return this.getHeroes()
-            .then(function (heroes) { return heroes.find(function (hero) { return hero.id === id; }); });
+    StudentService.prototype.getStudents = function () {
+        return Promise.resolve(this.STUDENT);
     };
-    StudentService.prototype.getHeroes = function () {
-        return this.http.get(this.heroesUrl)
-            .toPromise()
-            .then(function (response) { return response.json().data; })
-            .catch(this.handleError);
+    StudentService.prototype.getStudent = function (id) {
+        return this.getStudents()
+            .then(function (students) { return students.find(function (student) { return student.id === id; }); });
     };
-    // Add new Hero
-    StudentService.prototype.post = function (hero) {
-        var headers = new http_1.Headers({
-            'Content-Type': 'application/json' });
-        return this.http
-            .post(this.heroesUrl, JSON.stringify(hero), { headers: headers })
-            .toPromise()
-            .then(function (res) { return res.json().data; })
-            .catch(this.handleError);
-    };
-    // Update existing Hero
-    StudentService.prototype.put = function (hero) {
-        var headers = new http_1.Headers();
-        headers.append('Content-Type', 'application/json');
-        var url = this.heroesUrl + "/" + hero.id;
-        return this.http
-            .put(url, JSON.stringify(hero), { headers: headers })
-            .toPromise()
-            .then(function () { return hero; })
-            .catch(this.handleError);
-    };
-    StudentService.prototype.save = function (hero) {
-        if (hero.id) {
-            return this.put(hero);
+    StudentService.prototype.getSum = function (length) {
+        for (var i = 0; i < length; i++) {
+            ja = this.STUDENT[i].japanese;
+            ma = this.STUDENT[i].math;
+            en = this.STUDENT[i].english;
+            this.STUDENT[i].sum = Number(ja) + Number(ma) + Number(en);
         }
-        return this.post(hero);
-    };
-    StudentService.prototype.delete = function (hero) {
-        var headers = new http_1.Headers();
-        headers.append('Content-Type', 'application/json');
-        var url = this.heroesUrl + "/" + hero.id;
-        return this.http
-            .delete(url, { headers: headers })
-            .toPromise()
-            .catch(this.handleError);
-    };
-    StudentService.prototype.handleError = function (error) {
-        console.error('An error occurred', error);
-        return Promise.reject(error.message || error);
     };
     StudentService = __decorate([
         core_1.Injectable(), 
-        __metadata('design:paramtypes', [http_1.Http])
+        __metadata('design:paramtypes', [])
     ], StudentService);
     return StudentService;
 }());

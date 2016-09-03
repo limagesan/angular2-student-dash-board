@@ -1,0 +1,24 @@
+
+table th {
+ border: 1px solid #87b2e0;
+}
+table tr.main-value:hover {
+  background: #bbd4ee;
+  cursor:pointer;
+}
+
+tr.main-value td {
+  padding: 8px 15px;
+  border: 1px solid #84b2e0;
+  text-align: center;
+}
+
+table tr {
+  background: #fff;
+}
+
+}
+
+.outline{
+border: 0px white solid;
+}

@@ -1,52 +1,32 @@
-import { NgModule }      from '@angular/core';
-import { BrowserModule } from '@angular/platform-browser';
-import { FormsModule }	 from '@angular/forms';
+import { NgModule }       from '@angular/core';
+import { BrowserModule }  from '@angular/platform-browser';
+import { FormsModule }    from '@angular/forms';
 
-// Imports for loading & configuring the in-memory web api
-import { XHRBackend } from '@angular/http';
-
-import { InMemoryBackendService, SEED_DATA } from 'angular2-in-memory-web-api';
-import { InMemoryDataService }               from './in-memory-data.service';
+import { AppComponent }   from './app.component';
+import { routing }        from './app.routing';
 
 
-import { AppComponent }  from './app.component';
-import { routing } from './app.routing';
-import { HttpModule }     from '@angular/http';
-
-import { HeroDetailComponent } from './hero-detail.component';
-import { HeroesComponent }  from './heroes.component';
-import { DashboardComponent } from './dashboard.component';
-import { HeroService }  from './hero.service';
-//import { HeroSearchComponent }  from './hero-search.component';
-
-import { ScoreBoardComponent } from './score-board.component';
-import { InMemoryStudentDataService }               from './in-memory-studentdata.service';
 import { StudentService }  from './student.service';
-
+import { StudentsComponent }    from './students.component';
+import { StudentDetailComponent }  from './student-detail.component';
+import { StudentDashboardComponent }   from './studentdashboard.component';
 
 @NgModule({
-  imports:      [ 
-	BrowserModule,
-	FormsModule,
-	routing,
-	HttpModule 
-],
-  declarations: [ 
-	AppComponent,
-	HeroesComponent,
-	DashboardComponent,
-	HeroDetailComponent,
-	//HeroSearchComponent,
-	ScoreBoardComponent 
-],
-	providers:[
-	 HeroService,
-	StudentService,
-	 { provide: XHRBackend, useClass: InMemoryBackendService }, // in-mem server
-  { provide: SEED_DATA,  useClass: InMemoryDataService }     // in-mem server data
-//{ provide: SEED_DATA,  useClass: InMemoryStudentDataService }//Student用 サーバーデータ
-],
-  bootstrap:    [ AppComponent ]
+  imports: [
+    BrowserModule,
+    FormsModule,
+    routing
+  ],
+  declarations: [
+    AppComponent,
+    StudentsComponent,
+    StudentDetailComponent,
+    StudentDashboardComponent
+  ],
+  providers: [
+    StudentService
+  ],
+  bootstrap: [ AppComponent ]
 })
-export class AppModule { }
-
+export class AppModule {
+}

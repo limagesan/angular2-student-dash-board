@@ -1,0 +1,16 @@
+<div *ngIf="student">
+  <h2>{{student.name}} の成績情報</h2>
+  <div>
+    <label>id: </label>{{student.id}}</div>
+  <div>
+    <label>名前: </label>
+    <input [(ngModel)]="student.name" placeholder="name" />
+<label>国語: </label>
+    <input [(ngModel)]="student.japanese" placeholder="japanese" />
+<label>数学: </label>
+    <input [(ngModel)]="student.math" placeholder="math" />
+<label>英語: </label>
+    <input [(ngModel)]="student.english" placeholder="english" />
+  </div>
+  <button (click)="goBack()">Back</button>
+</div>
